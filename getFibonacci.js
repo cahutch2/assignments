@@ -37,7 +37,7 @@ var callback = function (req, res) { // req -> request object; res -> response o
   
 
   if(route === "/getFibonacci"){
-  	var r = parseInt(params.n);
+  	var r = parseInt(n);
   	var arr = fibRecursion(r);
   	var last = arr[r-1];
       res.writeHead(200, {'Content-Type': 'text/plain'}); // send response header
