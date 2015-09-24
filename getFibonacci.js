@@ -6,21 +6,17 @@ var fibRecursion = function(n){
 
 	if(n == 2){
 		return [0, 1];
-	res.writeHead(200, {'Content-Type': 'number'});
-	    res.end(n.toString());
+
 	}
 	else if (n == 1){
-			return [1];
-		res.writeHead(200, {'Content-Type': 'number'}); 
-		    res.end(n.toString());
+			return [0];
+		
 
 		}
 	else {
 			var x = fibRecursion(n-1);
 			x[x.length] = x[x.length-1] + x[x.length - 2]
 			return x;
-		res.writeHead(200, {'Content-Type': 'number'}); 
-		    res.end(x.toString());
 		}
 }
 
@@ -31,16 +27,19 @@ var fibRecursion = function(n){
 var callback = function (req, res) { // req -> request object; res -> response object
   
   var query = url.parse(req.url).query;
-  var spliturl = req.url.split("?");
-  var route = spliturl[0];
+  var route = req.url.split("?")[0];
   var params = querystring.parse(query);
-
+  var n = params.n;
+  
   console.log(req.url);
   console.log(route);
   console.log(params);
-  var n = params.n;
+  
 
   if(route === "/getFibonacci"){
+  	var r = parseInt(params.n);
+  	var arr = fibRecursion(r);
+  	var last = arr[r-1];
       res.writeHead(200, {'Content-Type': 'text/plain'}); // send response header
       res.end(fibRecursion().toString()); // send response body
   }
